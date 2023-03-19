@@ -20,15 +20,15 @@ const TodoList = () => {
         type: 'SET_TODOS',
         payload: res.data
       })
-    }).catch(err => {
+    }).catch(() => {
       toast.error('Error has been occured');
     })
   }, [state.sortBy, state.page, state.direction]);
 
   return (
     <div>
-      <AddTodoBtnWrapper onClick={() => navigate('/todos/new')}>
-        <AddTodoBtn>+</AddTodoBtn>
+      <AddTodoBtnWrapper>
+        <AddTodoBtn onClick={() => navigate('/todos/new')}>+</AddTodoBtn>
       </AddTodoBtnWrapper>
 
       <SortBy />

@@ -28,6 +28,7 @@ const NewOrEditTodo = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    event.stopPropagation();
 
     if (!name.trim() || !email.trim() || !text.trim()) {
       toast.warning('All fields required');

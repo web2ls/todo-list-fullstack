@@ -39,26 +39,25 @@ const getTodoById = (request, response) => {
   })
 }
 
-const inter = (request, response, next) => {
-  console.log('inteceptor in the work');
-  if (request.method !== 'POST' || request.method !== 'PUT' || request.method !== 'DELETE') {
+const interceptor = (request, response, next) => {
+  if (request.method === 'GET' || request.path === '/login') {
     next();
-  } else {
-    pool.query('SELECT logged FROM users WHERE username = $1', ['admin'], (error, results) => {
-      if (error) {
-        response.status(500).send(error);
-      } else {
-        const res = results.rows[0];
-        console.log(res.logged);
-        if (res.logged) {
-          next();
-        } else {
-          response.status(403).send('Forbidden');
-        }
-      }
-    })
+    return;
   }
-}
+
+  pool.query('SELECT logged FROM users WHERE username = $1', ['admin'], (error, results) => {
+    if (error) {
+      response.status(500).send(error);
+    } else {
+      const res = results.rows[0];
+      if (res && res.logged) {
+        next();
+      } else {
+        response.status(403).send('Forbidden route');
+      }
+    }
+  })
+};
 
 const createTodo = (request, response) => {
   const { name, email, text, complete } = request.body
@@ -176,5 +175,5 @@ module.exports = {
   completeTodo,
   login,
   logout,
-  inter,
+  interceptor,
 }

@@ -15,7 +15,7 @@ app.use(
     extended: true,
   })
 )
-app.use(db.inter);
+app.use(db.interceptor);
 
 app.get('/', (req, res) => {
   res.send('Todos server is ready');

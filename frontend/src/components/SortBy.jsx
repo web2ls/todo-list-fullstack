@@ -23,14 +23,16 @@ const SortBy = () => {
   return (
     <FiltersWrapper>
       <div>
-        <span>Sort by</span>
+        <span>Sort by: </span>
         <select select={state.sortBy} onChange={onChangeSorting}>
           <option value='complete'>Status</option>
           <option value='name'>Name</option>
           <option value='email'>Email</option>
         </select>
+      </div>
 
-        <span>Direction</span>
+      <div>
+        <span>Direction: </span>
         <select select={state.direction} onChange={onChangeDirection}>
           <option value='ASC'>ASC</option>
           <option value='DESC'>DESC</option>
@@ -49,6 +51,10 @@ const FiltersWrapper = styled.div`
   margin: 20px 0;
 
   & span {
+    margin-right: 10px;
+  }
+
+  & div:first-child {
     margin-right: 10px;
   }
 `;
